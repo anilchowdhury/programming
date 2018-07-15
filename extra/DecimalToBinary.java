@@ -13,10 +13,6 @@ public class DecimalToBinary {
         System.out.println(convertDecimalToBinary(6));
         System.out.println(convertDecimalToBinary(16));
         System.out.println(convertDecimalToBinary(35));
-        System.out.println(Calendar.getInstance().get(Calendar.MILLISECOND));
-        System.out.println(Calendar.getInstance().get(Calendar.SECOND));
-        System.out.println(Calendar.getInstance().get(Calendar.MINUTE));
-        System.out.println(Calendar.getInstance().get(Calendar.HOUR));
     }
 
     private static String convertDecimalToBinary(int number) {
