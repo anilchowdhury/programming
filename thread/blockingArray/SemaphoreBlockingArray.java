@@ -15,8 +15,8 @@ public class SemaphoreBlockingArray<E> implements CircularBlockingArray<E> {
     private Semaphore addPermit;
     private Semaphore takePermit;
 
-    SemaphoreBlockingArray(int capacity, Class<E> type) {
-        items = (E[]) Array.newInstance(type, capacity);
+    SemaphoreBlockingArray(int capacity, Class<E[]> type) {
+        items = type.cast(Array.newInstance(type.getComponentType(), capacity));
 //      items = new Object[capacity];
         addPermit = new Semaphore(capacity);
         takePermit = new Semaphore(0);
@@ -44,6 +44,7 @@ public class SemaphoreBlockingArray<E> implements CircularBlockingArray<E> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        @SuppressWarnings("unchecked")
         E item = (E) items[takeIndex];
         items[takeIndex] = null;
         if (++takeIndex == items.length) {

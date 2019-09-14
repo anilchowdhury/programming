@@ -13,9 +13,9 @@ public class WaitNotifyBlockingArray<E> implements CircularBlockingArray<E> {
     private int addIndex = 0;
     private int takeIndex = 0;
 
-    WaitNotifyBlockingArray(int capacity, Class<E> type) {
-        items = (E[]) Array.newInstance(type, capacity);
-//        items = new Object[capacity];
+    WaitNotifyBlockingArray(int capacity, Class<E[]> type) {
+        items = type.cast(Array.newInstance(type.getComponentType(), capacity));
+//      items = new Object[capacity];
     }
 
     @Override
@@ -49,6 +49,7 @@ public class WaitNotifyBlockingArray<E> implements CircularBlockingArray<E> {
                 e.printStackTrace();
             }
         }
+        @SuppressWarnings("unchecked")
         E item = (E) items[takeIndex];
         items[takeIndex] = null;
         count--;
