@@ -8,19 +8,18 @@ import java.lang.reflect.Array;
  */
 public class WaitNotifyBlockingArray<E> implements CircularBlockingArray<E> {
 
-    private final Object[] items;
+    private final E[] items;
     private int count = 0;
     private int addIndex = 0;
     private int takeIndex = 0;
 
     WaitNotifyBlockingArray(int capacity, Class<E[]> type) {
         items = type.cast(Array.newInstance(type.getComponentType(), capacity));
-//      items = new Object[capacity];
     }
 
     @Override
     public synchronized void add(E item) {
-        while (count == items.length) {
+        while (isQueueFull()) {
             try {
                 System.out.println(String.format("Queue is full. %s waiting for consumer to write ...",
                         Thread.currentThread().getName()));
@@ -30,17 +29,21 @@ public class WaitNotifyBlockingArray<E> implements CircularBlockingArray<E> {
             }
         }
         items[addIndex++] = item;
+
+        if(isQueueEmpty()) {
+            notifyAll();
+        }
+
         count++;
         if (addIndex == items.length) {
             addIndex = 0;
         }
         System.out.println(String.format("%s added item - [%s]", Thread.currentThread().getName(), item.toString()));
-        notifyAll();
     }
 
     @Override
     public synchronized E take() {
-        while (count == 0) {
+        while (isQueueEmpty()) {
             try {
                 System.out.println(String.format("Queue is empty. %s waiting to be produced something ...",
                         Thread.currentThread().getName()));
@@ -49,15 +52,27 @@ public class WaitNotifyBlockingArray<E> implements CircularBlockingArray<E> {
                 e.printStackTrace();
             }
         }
-        @SuppressWarnings("unchecked")
-        E item = (E) items[takeIndex];
+
+        E item = items[takeIndex];
         items[takeIndex] = null;
+
+        if (isQueueFull()) {
+            notifyAll();
+        }
+
         count--;
         if (++takeIndex == items.length) {
             takeIndex = 0;
         }
         System.out.println(String.format("%s consumed item - [%s]", Thread.currentThread().getName(), item.toString()));
-        notifyAll();
         return item;
+    }
+
+    private boolean isQueueFull() {
+        return count == items.length;
+    }
+
+    private boolean isQueueEmpty() {
+        return count == 0;
     }
 }

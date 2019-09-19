@@ -9,7 +9,7 @@ import java.util.concurrent.Semaphore;
  */
 public class SemaphoreBlockingArray<E> implements CircularBlockingArray<E> {
 
-    private final Object[] items;
+    private final E[] items;
     private int addIndex = 0;
     private int takeIndex = 0;
     private Semaphore addPermit;
@@ -17,7 +17,6 @@ public class SemaphoreBlockingArray<E> implements CircularBlockingArray<E> {
 
     SemaphoreBlockingArray(int capacity, Class<E[]> type) {
         items = type.cast(Array.newInstance(type.getComponentType(), capacity));
-//      items = new Object[capacity];
         addPermit = new Semaphore(capacity);
         takePermit = new Semaphore(0);
     }
@@ -44,8 +43,8 @@ public class SemaphoreBlockingArray<E> implements CircularBlockingArray<E> {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        @SuppressWarnings("unchecked")
-        E item = (E) items[takeIndex];
+
+        E item = items[takeIndex];
         items[takeIndex] = null;
         if (++takeIndex == items.length) {
             takeIndex = 0;
