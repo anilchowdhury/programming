@@ -18,8 +18,8 @@ public class CircularBlockingArrayTesting {
         Random random = new Random();
         Thread producer1 = new Thread(() -> {
             for (int i = 0; i < input; i++) {
-                array.add(2 * i + 1);
                 try {
+                    array.add(2 * i + 1);
                     Thread.sleep(random.nextInt(10000));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -28,8 +28,8 @@ public class CircularBlockingArrayTesting {
         }, "Producer1");
         Thread producer2 = new Thread(() -> {
             for (int i = 0; i < input; i++) {
-                array.add(2 * i + 2);
                 try {
+                    array.add(2 * i + 2);
                     Thread.sleep(random.nextInt(10000));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -41,10 +41,10 @@ public class CircularBlockingArrayTesting {
             for (int i = 1; i <= input; i++) {
                 try {
                     Thread.sleep(random.nextInt(10000));
+                    array.take();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                array.take();
             }
             System.out.println(String.format("%s exiting as it has consumed it quota of %d items",
                     Thread.currentThread().getName(), input));
@@ -53,10 +53,10 @@ public class CircularBlockingArrayTesting {
             for (int i = 1; i <= input; i++) {
                 try {
                     Thread.sleep(random.nextInt(10000));
+                    array.take();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                array.take();
             }
             System.out.println(String.format("%s exiting as it has consumed it quota of %d items",
                     Thread.currentThread().getName(), input));
@@ -80,8 +80,8 @@ public class CircularBlockingArrayTesting {
         Random random = new Random();
         Thread producer = new Thread(() -> {
             for (int i = 1; i <= 2 * input; i++) {
-                array.add(i);
                 try {
+                    array.add(i);
                     Thread.sleep(random.nextInt(1000));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -93,10 +93,10 @@ public class CircularBlockingArrayTesting {
             for (int i = 1; i <= input; i++) {
                 try {
                     Thread.sleep(random.nextInt(10000));
+                    array.take();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                array.take();
             }
             System.out.println(String.format("%s exiting as it has consumed it quota of %d items",
                     Thread.currentThread().getName(), input));
@@ -105,10 +105,10 @@ public class CircularBlockingArrayTesting {
             for (int i = 1; i <= input; i++) {
                 try {
                     Thread.sleep(random.nextInt(10000));
+                    array.take();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                array.take();
             }
             System.out.println(String.format("%s exiting as it has consumed it quota of %d items",
                     Thread.currentThread().getName(), input));
@@ -130,8 +130,8 @@ public class CircularBlockingArrayTesting {
         Random random = new Random();
         Thread producer = new Thread(() -> {
             for (int i = 1; i <= 2 * input; i++) {
-                array.add(i);
                 try {
+                    array.add(i);
                     Thread.sleep(random.nextInt(1000));
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -142,10 +142,10 @@ public class CircularBlockingArrayTesting {
             for (int i = 1; i <= 2 * input; i++) {
                 try {
                     Thread.sleep(random.nextInt(5000));
+                    array.take();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                array.take();
             }
         }, "Consumer");
         producer.start();

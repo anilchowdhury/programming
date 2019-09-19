@@ -22,34 +22,27 @@ public class SemaphoreBlockingArray<E> implements CircularBlockingArray<E> {
     }
 
     @Override
-    public void add(E item) {
-        try {
-            addPermit.acquire();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+    public void add(E item) throws InterruptedException {
+        addPermit.acquire();
         items[addIndex++] = item;
         if (addIndex == items.length) {
             addIndex = 0;
         }
-        System.out.println(String.format("%s added item - [%s]", Thread.currentThread().getName(), item.toString()));
+        System.out.println(String.format("%s added item - [%s]",
+                Thread.currentThread().getName(), item.toString()));
         takePermit.release(1);
     }
 
     @Override
-    public E take() {
-        try {
-            takePermit.acquire();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+    public E take() throws InterruptedException {
+        takePermit.acquire();
         E item = items[takeIndex];
         items[takeIndex] = null;
         if (++takeIndex == items.length) {
             takeIndex = 0;
         }
-        System.out.println(String.format("%s consumed item - [%s]", Thread.currentThread().getName(), item.toString()));
+        System.out.println(String.format("%s consumed item - [%s]",
+                Thread.currentThread().getName(), item.toString()));
         addPermit.release(1);
         return item;
     }

@@ -18,15 +18,11 @@ public class WaitNotifyBlockingArray<E> implements CircularBlockingArray<E> {
     }
 
     @Override
-    public synchronized void add(E item) {
+    public synchronized void add(E item) throws InterruptedException {
         while (isQueueFull()) {
-            try {
-                System.out.println(String.format("Queue is full. %s waiting for consumer to write ...",
-                        Thread.currentThread().getName()));
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            System.out.println(String.format("Queue is full. %s waiting for consumer to write ...",
+                    Thread.currentThread().getName()));
+            wait();
         }
         items[addIndex++] = item;
 
@@ -42,15 +38,11 @@ public class WaitNotifyBlockingArray<E> implements CircularBlockingArray<E> {
     }
 
     @Override
-    public synchronized E take() {
+    public synchronized E take() throws InterruptedException {
         while (isQueueEmpty()) {
-            try {
-                System.out.println(String.format("Queue is empty. %s waiting to be produced something ...",
-                        Thread.currentThread().getName()));
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            System.out.println(String.format("Queue is empty. %s waiting to be produced something ...",
+                    Thread.currentThread().getName()));
+            wait();
         }
 
         E item = items[takeIndex];

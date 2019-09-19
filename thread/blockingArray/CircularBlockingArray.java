@@ -6,7 +6,7 @@ package thread.blockingArray;
  */
 public interface CircularBlockingArray<E> {
 
-    void add(E item);
+    void add(E item) throws InterruptedException;
 
-    E take();
+    E take() throws InterruptedException;
 }
