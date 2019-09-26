@@ -18,9 +18,11 @@ public class LogFormatter {
     }
 
     private String getFormattedTimeStamp(long time) {
-        Timestamp timestamp = new Timestamp(time);
-        LocalDateTime localDateTime = timestamp.toLocalDateTime();
+        LocalDateTime localDateTime = new Timestamp(time).toLocalDateTime();
+        return getFormattedString(localDateTime);
+    }
 
+    private String getFormattedString(LocalDateTime localDateTime) {
         int dayOfMonth = localDateTime.getDayOfMonth();
         int month = localDateTime.getMonth().ordinal() + 1;
         int year = localDateTime.getYear();
@@ -36,21 +38,7 @@ public class LogFormatter {
     }
 
     /*private String getFormattedTimeStamp(long time) {
-
         LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(time), ZoneId.systemDefault());
-
-        int dayOfMonth = localDateTime.getDayOfMonth();
-        int month = localDateTime.getMonth().ordinal() + 1;
-        int year = localDateTime.getYear();
-
-        String hour = localDateTime.getHour() < 10 ? String.format("0%d", localDateTime.getHour()) :
-                String.valueOf(localDateTime.getHour());
-        String minute = localDateTime.getMinute() < 10 ? String.format("0%d", localDateTime.getMinute()) :
-                String.valueOf(localDateTime.getMinute());
-        String second = localDateTime.getSecond() < 10 ? String.format("0%d", localDateTime.getSecond()) :
-                String.valueOf(localDateTime.getSecond());
-        int nanoSecond = localDateTime.getNano();
-
-        return String.format("%d-%d-%d %s:%s:%s:%d", dayOfMonth, month, year, hour, minute, second, nanoSecond);
+        return getFormattedString(localDateTime);
     }*/
 }
