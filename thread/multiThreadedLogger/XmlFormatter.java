@@ -1,5 +1,7 @@
 package thread.multiThreadedLogger;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Calendar;
 import java.util.TimeZone;
 
@@ -21,7 +23,8 @@ public class XmlFormatter extends LogFormatter {
     private static final String TAB_TAG = "\t";
 
     @Override
-    public String format(LogRecord record) {
+    public String
+    format(@NotNull LogRecord record) {
         StringBuilder formattedMessage = new StringBuilder();
         formattedMessage.append(LOG_RECORD_START_TAG).append(NEW_LINE_TAG);
 

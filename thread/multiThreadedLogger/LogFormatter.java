@@ -1,5 +1,7 @@
 package thread.multiThreadedLogger;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
@@ -9,7 +11,7 @@ import java.time.LocalDateTime;
  */
 public class LogFormatter {
 
-    public String format(LogRecord record) {
+    public String format(@NotNull LogRecord record) {
         String formattedTimeStamp = getFormattedTimeStamp(record.getTimestamp());
         String logLevel = record.getLogLevel();
         String loggerName = record.getLoggerName();
