@@ -34,9 +34,29 @@ public class LogFormatter {
                 String.valueOf(localDateTime.getMinute());
         String second = localDateTime.getSecond() < 10 ? String.format("0%d", localDateTime.getSecond()) :
                 String.valueOf(localDateTime.getSecond());
-        int nanoSecond = localDateTime.getNano();
+        String nanoSecond = getFormattedNanoSecond(localDateTime);
 
-        return String.format("%d-%d-%d %s:%s:%s:%d", dayOfMonth, month, year, hour, minute, second, nanoSecond);
+        return String.format("%d-%d-%d %s:%s:%s:%s", dayOfMonth, month, year, hour, minute, second, nanoSecond);
+    }
+
+    private String getFormattedNanoSecond(LocalDateTime localDateTime) {
+        String nanoSecond = String.valueOf(localDateTime.getNano());
+        if (nanoSecond.length() < 9) {
+            nanoSecond = prefixZeros(nanoSecond);
+        }
+        return nanoSecond.substring(0, 3);
+    }
+
+    private String prefixZeros(String nanoSecond) {
+        char[] zeroPrefixedNanoSecond = new char[9];
+        int index = 0;
+        for (; index < (9 - nanoSecond.length()); index++) {
+            zeroPrefixedNanoSecond[index] = '0';
+        }
+        for (int j = 0; j < nanoSecond.length(); j++) {
+            zeroPrefixedNanoSecond[index++] = nanoSecond.charAt(j);
+        }
+        return String.valueOf(zeroPrefixedNanoSecond);
     }
 
     /*private String getFormattedTimeStamp(long time) {
