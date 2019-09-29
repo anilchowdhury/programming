@@ -26,7 +26,7 @@ public class StoppableService implements Runnable {
         System.out.println(String.format("%s is STOPPED ... ", name));
     }
 
-    synchronized void stop() {
+    void stop() {
         isStopped = true;
     }
 
