@@ -6,7 +6,7 @@ import java.lang.reflect.Array;
  * @author Anil Chowdhury
  * Created on 9/4/2019
  */
-public class WaitNotifyBlockingArray<E> implements CircularBlockingArray<E> {
+public class WaitNotifyBlockingArray<E> implements CircularBlockingQueue<E> {
 
     private final E[] items;
     private int count = 0;

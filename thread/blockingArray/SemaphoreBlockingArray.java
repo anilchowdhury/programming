@@ -7,7 +7,7 @@ import java.util.concurrent.Semaphore;
  * @author Anil Chowdhury
  * Created on 9/4/2019
  */
-public class SemaphoreBlockingArray<E> implements CircularBlockingArray<E> {
+public class SemaphoreBlockingArray<E> implements CircularBlockingQueue<E> {
 
     private final E[] items;
     private int addIndex = 0;

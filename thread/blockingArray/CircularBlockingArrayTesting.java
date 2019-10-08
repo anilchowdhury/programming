@@ -14,7 +14,7 @@ public class CircularBlockingArrayTesting {
     }
 
     private static void multipleProducerMultipleConsumers(int input) {
-        CircularBlockingArray<Integer> array = getBlockingArray(input, 0, Integer[].class);
+        CircularBlockingQueue<Integer> array = getBlockingArray(input, 0, Integer[].class);
         Random random = new Random();
         Thread producer1 = new Thread(() -> {
             for (int i = 0; i < input; i++) {
@@ -76,7 +76,7 @@ public class CircularBlockingArrayTesting {
     }
 
     private static void singleProducerMultipleConsumers(int input) {
-        CircularBlockingArray<Integer> array = getBlockingArray(input, 1, Integer[].class);
+        CircularBlockingQueue<Integer> array = getBlockingArray(input, 1, Integer[].class);
         Random random = new Random();
         Thread producer = new Thread(() -> {
             for (int i = 1; i <= 2 * input; i++) {
@@ -126,7 +126,7 @@ public class CircularBlockingArrayTesting {
     }
 
     private static void singleProducerSingleConsumer(int input) {
-        CircularBlockingArray<Integer> array = getBlockingArray(input, 0, Integer[].class);
+        CircularBlockingQueue<Integer> array = getBlockingArray(input, 0, Integer[].class);
         Random random = new Random();
         Thread producer = new Thread(() -> {
             for (int i = 1; i <= 2 * input; i++) {
@@ -158,7 +158,7 @@ public class CircularBlockingArrayTesting {
         }
     }
 
-    private static <T> CircularBlockingArray<T> getBlockingArray(int input, int type, Class<T[]> elementType) {
+    private static <T> CircularBlockingQueue<T> getBlockingArray(int input, int type, Class<T[]> elementType) {
         if (type == 0) {
             return new WaitNotifyBlockingArray<>(input, elementType);
         } else if (type == 1) {
