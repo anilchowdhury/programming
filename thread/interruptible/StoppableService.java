@@ -7,7 +7,7 @@ package thread.interruptible;
 public class StoppableService implements Runnable {
 
     private String name;
-    //can use Atomic Boolean also instead of volatile variable
+    //can use @java.util.concurrent.atomic.AtomicBoolean also instead of volatile variable
     private volatile boolean isStopped = false;
 
     StoppableService(String name) {
