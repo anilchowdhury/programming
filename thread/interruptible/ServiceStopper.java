@@ -1,5 +1,9 @@
 package thread.interruptible;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author Anil Chowdhury
  * Created on 9/29/2019
@@ -18,6 +22,22 @@ public class ServiceStopper implements Runnable {
 
     @Override
     public void run() {
+        final ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(1);
+
+        scheduledExecutorService.schedule(() -> {
+            System.out.println(String.format("\nINTERRUPTING ... %s\n", interruptThread.getName()));
+            interruptThread.interrupt();
+
+            scheduledExecutorService.schedule(() -> {
+                System.out.println(String.format("\nSTOPPING ... %s\n", service.getName()));
+                service.stop();
+                scheduledExecutorService.shutdown();
+            }, stopDelay, TimeUnit.MILLISECONDS);
+        }, stopDelay, TimeUnit.MILLISECONDS);
+    }
+
+    /*@Override
+    public void run() {
         try {
             InterruptDriver.sleep(stopDelay);
             System.out.println(String.format("\nINTERRUPTING ... %s\n", interruptThread.getName()));
@@ -29,5 +49,5 @@ public class ServiceStopper implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
