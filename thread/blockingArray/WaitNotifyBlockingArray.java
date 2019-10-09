@@ -15,12 +15,13 @@ public class WaitNotifyBlockingArray<E> implements CircularBlockingQueue<E> {
 
     WaitNotifyBlockingArray(int capacity, Class<E[]> type) {
         items = type.cast(Array.newInstance(type.getComponentType(), capacity));
+        System.out.println("---------------------- Wait Notify Blocking Array ----------------------");
     }
 
     @Override
     public synchronized void add(E item) throws InterruptedException {
         while (isQueueFull()) {
-            System.out.println(String.format("Queue is full. %s waiting for consumer to write ...",
+            System.out.println(String.format("Queue is full. %s waiting for consumer to take ...",
                     Thread.currentThread().getName()));
             wait();
         }

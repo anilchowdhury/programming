@@ -19,10 +19,15 @@ public class SemaphoreBlockingArray<E> implements CircularBlockingQueue<E> {
         items = type.cast(Array.newInstance(type.getComponentType(), capacity));
         addPermit = new Semaphore(capacity);
         takePermit = new Semaphore(0);
+        System.out.println("---------------------- Semaphore Blocking Array ----------------------");
     }
 
     @Override
     public void add(E item) throws InterruptedException {
+        if (addPermit.availablePermits() == 0) {
+            System.out.println(String.format("Queue is full. %s waiting for consumer to take ...",
+                    Thread.currentThread().getName()));
+        }
         addPermit.acquire();
         items[addIndex++] = item;
         if (addIndex == items.length) {
@@ -35,6 +40,10 @@ public class SemaphoreBlockingArray<E> implements CircularBlockingQueue<E> {
 
     @Override
     public E take() throws InterruptedException {
+        if (takePermit.availablePermits() == 0) {
+            System.out.println(String.format("Queue is empty. %s waiting to be produced something ...",
+                    Thread.currentThread().getName()));
+        }
         takePermit.acquire();
         E item = items[takeIndex];
         items[takeIndex] = null;
