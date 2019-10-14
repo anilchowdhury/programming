@@ -1,9 +1,5 @@
 package oldNotes;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * @author Anil Chowdhury
  *         Created on 5/17/2018.
@@ -11,6 +7,9 @@ import java.util.stream.Collectors;
 public class PrintMatrixDiagonally {
 
     public static void main(String[] args) {
+
+        PrintMatrixDiagonally driver = new PrintMatrixDiagonally();
+
         int[][] matrix = {{1, 2, 3, 4},
                           {5, 6, 7, 8},
                           {9, 10, 11, 12},
@@ -27,17 +26,30 @@ public class PrintMatrixDiagonally {
                            {6, 7, 8, 9, 10},
                            {11, 12, 13, 14, 15}};
 
-        printDiagonally(matrix);
+        driver.printDiagonally(matrix);
+        driver.printDiagonally(matrix1);
+        driver.printDiagonally(matrix2);
     }
 
-    private static void printDiagonally(int[][] matrix) {
-        int row = matrix.length;
-        int column = matrix[0].length;
+    private void printDiagonally(int[][] matrix) {
+        int ROW_SIZE = matrix.length;
+        int COLUMN_SIZE = matrix[0].length;
 
-        for (int lines = 0; lines <= (row + column - 1); lines++) {
-            int start_row = lines <= row - 1 ? lines : row - 1;
-            int start_col = lines <= row - 1 ? 0 : lines + 1 - row;
-            int count = Math.min(lines + 1, Math.min(column - start_col, row));
+        for (int lines = 0; lines < (ROW_SIZE + COLUMN_SIZE); lines++) {
+            // If lines is greater than the ROW_SIZE, then consider only
+            // last row elements
+            int start_row = lines < ROW_SIZE ? lines : ROW_SIZE - 1;
+
+            // If lines is smaller than the ROW_SIZE, then consider only
+            // first column
+            int start_col = lines < ROW_SIZE ? 0 : lines - ROW_SIZE + 1;
+
+            // Maximum possible elements in Line0 = 1, Line1 = 2, Line2 = 3
+            // Maximum possible elements relative to rows = ROW_SIZE
+            // Maximum possible elements relative to column = COLUMN_SIZE - start_col
+            // So, total elements to be printed for the current line will be minimum
+            // of all the 3 possibilities
+            int count = Math.min(lines + 1, Math.min(COLUMN_SIZE - start_col, ROW_SIZE));
 
             for (int j = 0; j < count; j++) {
                 System.out.print(matrix[start_row--][start_col++] + " ");
@@ -45,4 +57,9 @@ public class PrintMatrixDiagonally {
             System.out.println();
         }
     }
+
+    private boolean isLessThanRowSize(int row, int lines) {
+        return lines < row;
+    }
 }
+
