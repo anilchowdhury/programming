@@ -5,6 +5,16 @@ import java.lang.reflect.Array;
 /**
  * @author Anil Chowdhury
  * Created on 9/4/2019
+ *
+ * We can also implement Generic object pool using below logic
+ * We can make this class non-abstract.
+ * It can take ObjectFactory interface.
+ * PersonFactory will implements this ObjectFactory and pass
+ * it implementation to ObjectPool class
+ *
+ * @link ObjectPool :: createCustomObject()
+ * will now call ObjectFactory :: createNewObject()
+ *
  */
 public abstract class ObjectPool<E> implements GenericObjectPool<E> {
 
