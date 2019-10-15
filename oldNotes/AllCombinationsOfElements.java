@@ -22,7 +22,7 @@ public class AllCombinationsOfElements {
         }
         Set<String> result = new HashSet<>();
         printCombinationHelper(chars, 0, chars.length - 1, size, result, new char[size], 0);
-        result.stream().forEach(System.out::println);
+        result.forEach(System.out::println);
     }
 
     private static void printCombinationHelper(char[] array, int startIndex, int endIndex, int size,
@@ -38,3 +38,5 @@ public class AllCombinationsOfElements {
         }
     }
 }
+
+
