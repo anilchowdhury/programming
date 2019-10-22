@@ -55,8 +55,8 @@ public class Logger {
         return this.level.ordinal() >= level.ordinal();
     }
 
-    private void logRecord(LogLevel level, String message) {
-        if (!isLoggable(level)) {
+    private void logRecord(LogLevel requestedLogLevel, String message) {
+        if (!isLoggable(requestedLogLevel)) {
             return;
         }
         LogRecord logRecord = LogRecord.create(name, message, level.name());
