@@ -80,7 +80,8 @@ public class LogDriver {
             for (int index = 0; index < numberOfTimeToPrint; index++) {
                 sleep();
                 logger.info(String.format("%s - %d", messagePrefix, index + delta));
-                logger.debug(String.format("%s - %d", messagePrefix, index + delta));
+                logger.debug(String.format("Additional messages for debugging for %s - %d",
+                        messagePrefix, index + delta));
             }
             latch.countDown();
         }
