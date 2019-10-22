@@ -29,17 +29,26 @@ public class LogDriver {
     private static void initializeTestSuite(int numberOfMessages) {
         CountDownLatch latch = new CountDownLatch(4);
 
-        Thread trackingService1 = new Thread(new Service("Tracking Service-1", LogLevel.INFO, numberOfMessages,
-                10000, "Tracking Request", 0, latch));
-        Thread trackingService2 = new Thread(new Service("Tracking Service-2", LogLevel.INFO, numberOfMessages,
-                10000, "Tracking Request", numberOfMessages + numberOfMessages, latch));
-        Thread orderService1 = new Thread(new Service("Order Service-1", LogLevel.INFO, numberOfMessages,
-                10000, "Order Request", numberOfMessages + numberOfMessages, latch));
-        Thread orderService2 = new Thread(new Service("Order Service-2", LogLevel.INFO, numberOfMessages,
-                10000, "Order Request", 0, latch));
+        Service trackingRequest1 = new Service("Tracking Service-1", LogLevel.DEBUG, numberOfMessages,
+                10000, "Tracking Request", 0, latch);
+        Service trackingRequest2 = new Service("Tracking Service-2", LogLevel.DEBUG, numberOfMessages,
+                10000, "Tracking Request", numberOfMessages + numberOfMessages, latch);
+        Service orderRequest1 = new Service("Order Service-1", LogLevel.INFO, numberOfMessages,
+                10000, "Order Request", numberOfMessages + numberOfMessages, latch);
+        Service orderRequest2 = new Service("Order Service-2", LogLevel.INFO, numberOfMessages,
+                10000, "Order Request", 0, latch);
+
+        Thread trackingService1 = new Thread(trackingRequest1);
+        Thread trackingService2 = new Thread(trackingRequest2);
+        Thread orderService1 = new Thread(orderRequest1);
+        Thread orderService2 = new Thread(orderRequest2);
 
         try {
             startServices(trackingService1, trackingService2, orderService1, orderService2);
+            Thread.sleep(15000);
+            System.out.println("\n---------- Changing the log level to INFO for Tracking service ----------\n");
+            trackingRequest1.setLogLevel(LogLevel.INFO);
+            trackingRequest2.setLogLevel(LogLevel.INFO);
             latch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -71,8 +80,13 @@ public class LogDriver {
             for (int index = 0; index < numberOfTimeToPrint; index++) {
                 sleep();
                 logger.info(String.format("%s - %d", messagePrefix, index + delta));
+                logger.debug(String.format("%s - %d", messagePrefix, index + delta));
             }
             latch.countDown();
+        }
+
+        void setLogLevel(LogLevel level) {
+            logger.setLogLevel(level);
         }
 
         private void sleep() {
