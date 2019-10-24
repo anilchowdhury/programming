@@ -47,11 +47,20 @@ public class MinPathFromACellToBoundary {
                 {1, 1, 0, 0, 1},
         };
 
+        int[][] matrix4 = {
+                {1, 1, 1, 1, 1},
+                {1, 0, 1, 0, 1},
+                {1, 0, 1, 0, 1},
+                {1, 1, 1, 0, 1},
+                {1, 1, 0, 0, 1},
+        };
+
         MinPathFromACellToBoundary driver = new MinPathFromACellToBoundary();
         System.out.println("Min path length = " + driver.minSteps(matrix)); //print 2
         System.out.println("Min path length = " + driver.minSteps(matrix1)); //print -1
         System.out.println("Min path length = " + driver.minSteps(matrix2)); //print 4
         System.out.println("Min path length = " + driver.minSteps(matrix3)); //print 0
+        System.out.println("Min path length = " + driver.minSteps(matrix4)); //print -1
     }
 
     private int minSteps(int[][] matrix) {
