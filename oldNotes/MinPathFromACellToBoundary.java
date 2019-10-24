@@ -9,7 +9,7 @@ import java.util.Arrays;
  * cell which is empty. The task is to find the minimum number of steps to reach
  * any boundary edge of the matrix. Print -1 if not possible to reach any of the
  * boundary edges.
- *
+ * <p>
  * https://www.geeksforgeeks.org/minimum-steps-to-reach-any-of-the-boundary-edges-of-a-matrix/
  *
  * @author Anil Chowdhury
@@ -98,35 +98,26 @@ public class MinPathFromACellToBoundary {
 
     private int findMinPathToCell2(int[][] matrix, int x, int y, int row,
                                    int column, int[][] dp, boolean[][] visited) {
+
+        if (!isInRange(x, y, row, column) || matrix[x][y] == 1) {
+            //if outside range or there is no path
+            return Integer.MAX_VALUE;
+        }
         if (visited[x][y]) {
             return dp[x][y];
         }
-        visited[x][y] = true;
 
-        if (matrix[x][y] == 1) {
-            return dp[x][y];
-        }
+        visited[x][y] = true;
         if (matrix[x][y] == 2) {
             dp[x][y] = 0;
             return dp[x][y];
         }
 
-        int minLength, minPathFromLeft, minPathFromRight, minPathFromTop, minPathFromBottom;
-        minLength = minPathFromLeft = minPathFromRight = minPathFromTop
-                = minPathFromBottom = Integer.MAX_VALUE;
-
-        if ((x - 1) >= 0) {
-            minPathFromTop = findMinPathToCell2(matrix, x - 1, y, row, column, dp, visited);
-        }
-        if ((y + 1) < column) {
-            minPathFromRight = findMinPathToCell2(matrix, x, y + 1, row, column, dp, visited);
-        }
-        if ((x + 1) < row) {
-            minPathFromBottom = findMinPathToCell2(matrix, x + 1, y, row, column, dp, visited);
-        }
-        if ((y - 1) >= 0) {
-            minPathFromLeft = findMinPathToCell2(matrix, x, y - 1, row, column, dp, visited);
-        }
+        int minLength = Integer.MAX_VALUE;
+        int minPathFromTop = findMinPathToCell2(matrix, x - 1, y, row, column, dp, visited);
+        int minPathFromRight = findMinPathToCell2(matrix, x, y + 1, row, column, dp, visited);
+        int minPathFromBottom = findMinPathToCell2(matrix, x + 1, y, row, column, dp, visited);
+        int minPathFromLeft = findMinPathToCell2(matrix, x, y - 1, row, column, dp, visited);
 
         int minLengthFromAllDirections = Math.min(minPathFromLeft, Math.min(minPathFromRight,
                 Math.min(minPathFromTop, minPathFromBottom)));
@@ -144,4 +135,9 @@ public class MinPathFromACellToBoundary {
             Arrays.fill(array, Integer.MAX_VALUE);
         }
     }
+
+    private boolean isInRange(int x, int y, int row, int column) {
+        return (x >= 0 && x < row) && (y >= 0 && y < column);
+    }
+
 }
