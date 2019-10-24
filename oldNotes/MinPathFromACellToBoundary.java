@@ -139,5 +139,4 @@ public class MinPathFromACellToBoundary {
     private boolean isInRange(int x, int y, int row, int column) {
         return (x >= 0 && x < row) && (y >= 0 && y < column);
     }
-
 }
