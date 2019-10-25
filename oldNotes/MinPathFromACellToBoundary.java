@@ -9,8 +9,12 @@ import java.util.Arrays;
  * cell which is empty. The task is to find the minimum number of steps to reach
  * any boundary edge of the matrix. Print -1 if not possible to reach any of the
  * boundary edges.
- * <p>
+ *
  * https://www.geeksforgeeks.org/minimum-steps-to-reach-any-of-the-boundary-edges-of-a-matrix/
+ *
+ * Search all the boundary elements
+ *      if its 2, then 2 is already at the boundary return 0
+ *      if its 0, then recursively try to find the smallest path from this cell
  *
  * @author Anil Chowdhury
  * Created on 10/24/2019
@@ -126,8 +130,7 @@ public class MinPathFromACellToBoundary {
             minLength = 1 + minLengthFromAllDirections;
         }
 
-        dp[x][y] = minLength;
-        return minLength;
+        return dp[x][y] = minLength;
     }
 
     private void initializeWithIntegerMax(int[][] dp) {
