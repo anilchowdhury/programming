@@ -5,5 +5,5 @@ package thread.trafficSignal;
  * Created on 9/9/2019
  */
 public enum Direction {
-    LEFT, STRAIGHT, RIGHT
+    LEFT, STRAIGHT, RIGHT;
 }
