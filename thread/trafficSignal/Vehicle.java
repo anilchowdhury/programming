@@ -1,6 +1,10 @@
 package thread.trafficSignal;
 
 /**
+ * Represent a Vehicle.
+ * It has reference to Lane on which its currently present
+ * Direction --> In which direction it will go after crossing the signal point
+ *
  * @author Anil Chowdhury
  * Created on 9/9/2019
  */
