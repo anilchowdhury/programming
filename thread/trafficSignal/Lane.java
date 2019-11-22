@@ -4,6 +4,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
 
 /**
+ * Represent the Lane. It has list of vehicles which is waiting for their turn
+ * to cross the signal point
+ *
  * @author Anil Chowdhury
  * Created on 9/9/2019
  */
