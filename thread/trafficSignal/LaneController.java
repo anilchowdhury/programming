@@ -3,6 +3,12 @@ package thread.trafficSignal;
 import java.util.concurrent.Semaphore;
 
 /**
+ *
+ * Lane controller is for controlling traffic of a specific lane
+ * Once received signal from @{@link TrafficManager} it open
+ * the gate for all the vehicle of the lane (which its controlling)
+ * to pass through
+ *
  * @author Anil Chowdhury
  * Created on 9/9/2019
  */
