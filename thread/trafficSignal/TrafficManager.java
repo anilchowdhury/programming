@@ -8,8 +8,9 @@ import java.util.List;
  *                      |           |           |
  *                      |     /|\               |
  *                      |      |    |           |
- *                      |      |
- *                      |  Lane 4      Lane5    |
+ *                      |      |                |
+ *                      |  Lane 4   |  Lane5    |
+ *                      |                       |
  *                      |           |    |      |
  *                      |                |      |
  *                      |           |   \|/     |
@@ -22,14 +23,15 @@ import java.util.List;
  *      <--- Lane 2                                  <--- Lane 7
  *
  * ---------------------                         ---------------------
- *                      |           |           |
- *                      |     /|\               |
- *                      |      |    |           |
+ *                      |                       |
+ *                      |     /|\   |           |
  *                      |      |                |
+ *                      |      |    |           |
  *                      |  Lane 1      Lane 8   |
  *                      |           |    |      |
  *                      |                |      |
  *                      |           |   \|/     |
+ *                      |                       |
  *                      |           |           |
  *
  *  Vehicle in lane 1 can go to {Lane 2, Lane 4, Lane 6}
