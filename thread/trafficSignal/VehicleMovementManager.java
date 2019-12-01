@@ -6,7 +6,7 @@ import java.util.Map;
 
 /**
  * This class will calculate the lane to which a vehicle will go after the crossing the signal point
- * 
+ *
  * @author Anil Chowdhury
  * Created on 9/10/2019
  */
