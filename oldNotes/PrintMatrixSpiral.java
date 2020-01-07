@@ -7,10 +7,10 @@ package oldNotes;
  * Print the boundary elements in spiral ways
  *          ----------------------->
  *        /|\                      |
- *         |                      |
- *         |                      |
- *         |                     \|/
- *         <-----------------------
+ *         |                       |
+ *         |                       |
+ *         |                      \|/
+ *         <------------------------
  *
  * Once reach to the starting point reduce
  * the length & width of matrix by size 1
