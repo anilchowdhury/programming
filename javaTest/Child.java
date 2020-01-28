@@ -23,6 +23,7 @@ public class Child extends Parent {
         try {
             Child driver = instance();
             driver.test();
+            driver.print();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -33,5 +34,11 @@ public class Child extends Parent {
         Parent p2 = new Parent();
         System.out.println("p1 -> " + p1.hashCode());
         System.out.println("p2 -> " + p2.hashCode());
+    }
+
+    @Override
+    public void print() {
+        super.print();
+        System.out.println("Child");
     }
 }
