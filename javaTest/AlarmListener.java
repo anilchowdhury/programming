@@ -6,4 +6,6 @@ package javaTest;
  */
 public interface AlarmListener {
     void wakeup();
+    Parent overRideTest(Parent parentInstance);
+    Parent overRideTest1(Parent parentInstance);
 }
