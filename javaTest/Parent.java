@@ -22,4 +22,8 @@ class Parent {
         }
         return singleton;
     }
+
+    public void print() {
+        System.out.println("Parent");
+    }
 }
