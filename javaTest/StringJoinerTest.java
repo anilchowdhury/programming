@@ -28,6 +28,17 @@ public class StringJoinerTest {
         schemas.add("dbo");
 //        schemas = null;
         printMessage(schemas);
+
+        splitTest();
+    }
+
+    private static void splitTest() {
+        String message = "apple, orange, grape, kiwi";
+//        String message = "apple";
+        String[] split = message.split("&&");
+        for(String s : split) {
+            System.out.println(s.trim());
+        }
     }
 
     private static void printMessage(Object... args) {
